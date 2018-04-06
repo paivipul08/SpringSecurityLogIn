@@ -1,0 +1,16 @@
+spring :
+    datasource : 
+        url : jdbc:mysql://localhost:3306/splitwise
+        username : root
+        password : root
+        driver-class-name : com.mysql.jdbc.Driver
+        
+    jpa : 
+        hibernate : 
+            ddl-auto : update    
+            
+    mvc :
+        view :
+            prefix : /WEB-INF/views/        
+            
+            suffix : .jsp    

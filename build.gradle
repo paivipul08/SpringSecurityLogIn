@@ -37,8 +37,6 @@ dependencies {
 	compile group: 'javax.servlet', name: 'servlet-api', version: '2.3'
 	/*compile group: 'org.hibernate', name: 'hibernate-core', version: '4.1.4.Final'*/
 	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.3.Final'
-	
-
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
 }

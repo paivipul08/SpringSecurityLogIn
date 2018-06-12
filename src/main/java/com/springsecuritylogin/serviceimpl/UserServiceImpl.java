@@ -3,6 +3,8 @@ package com.springsecuritylogin.serviceimpl;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,6 +52,13 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+	
+	@Override
+	public List<String> findAllUsersNames(User user){
+		List<User> userlist= userRepository.findByIdNotOrderByUsername(user.getId());
+		List<String> userNamesList=userlist.stream().map(User :: getUsername).collect(Collectors.toList());
+		return userNamesList;
 	}
 	
 }

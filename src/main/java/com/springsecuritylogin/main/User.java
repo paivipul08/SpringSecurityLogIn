@@ -1,11 +1,22 @@
 package com.springsecuritylogin.main;
 
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User{ //implements UserDetails,Serializable{
     private Long id;
     private String username;
     private String email;
@@ -14,6 +25,19 @@ public class User {
     private String passwordConfirm;
     private Set<Role> roles;
 
+    public User() {
+	}
+    
+    public User(User user){
+    	this.id=user.id;
+    	this.username=user.username;
+    	this.email=user.email;
+    	this.phoneNumber=user.phoneNumber;
+    	this.password=user.password;
+    	this.passwordConfirm=user.passwordConfirm;
+    	this.roles=user.roles;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -49,7 +73,7 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
@@ -74,6 +98,10 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", phoneNumber=" + phoneNumber
+				+ ", roles=" + roles + "]";
+	}
 }

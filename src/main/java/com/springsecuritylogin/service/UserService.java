@@ -1,5 +1,7 @@
 package com.springsecuritylogin.service;
 
+import java.util.List;
+
 import com.springsecuritylogin.main.User;
 
 public interface UserService {
@@ -11,4 +13,6 @@ public interface UserService {
 	void save(User user);
 
 	User findByUsername(String username);
+
+	List<String> findAllUsersNames(User user);
 }

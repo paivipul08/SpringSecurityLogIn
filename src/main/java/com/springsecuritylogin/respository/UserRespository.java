@@ -12,8 +12,9 @@ public interface UserRespository extends CrudRepository<User, Long> {
 
 	User findByUsername(String username);
 	
-	List<User> findAll();
+	//List<User> findAll();
 	
 	List<User> findByIdNotOrderByUsername(Long id);
 
+	List<User> findByUsernameContainingIgnoreCase(String username);
 }

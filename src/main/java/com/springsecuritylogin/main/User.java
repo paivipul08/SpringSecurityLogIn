@@ -11,11 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name = "user")
 public class User{ //implements UserDetails,Serializable{
     private Long id;
     private String username;
@@ -24,7 +25,10 @@ public class User{ //implements UserDetails,Serializable{
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
-
+    
+	
+    private Set<UserGroup> userGroups;
+    
     public User() {
 	}
     
@@ -36,6 +40,7 @@ public class User{ //implements UserDetails,Serializable{
     	this.password=user.password;
     	this.passwordConfirm=user.passwordConfirm;
     	this.roles=user.roles;
+    	this.userGroups=user.userGroups;
     }
     
     @Id
@@ -75,6 +80,7 @@ public class User{ //implements UserDetails,Serializable{
 
     @ManyToMany(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonManagedReference
     public Set<Role> getRoles() {
         return roles;
     }
@@ -97,6 +103,16 @@ public class User{ //implements UserDetails,Serializable{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	public Set<UserGroup> getUserGroups() {
+		return userGroups;
+	}
+
+	public void setUserGroups(Set<UserGroup> userGroups) {
+		this.userGroups = userGroups;
 	}
 
 	@Override

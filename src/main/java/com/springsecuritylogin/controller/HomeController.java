@@ -1,13 +1,8 @@
 package com.springsecuritylogin.controller;
 
-import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,6 +67,7 @@ public class HomeController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(principal instanceof User){
 			user =(User) principal;
+			System.out.println("USER------- "+user);
 			model.addAttribute("list", userService.findAllUsersNames(user));
 			return "welcome";
 		}
@@ -90,7 +86,7 @@ public class HomeController {
 	}*/
 	
 	@RequestMapping(value = {"/process"}, method = RequestMethod.POST)
-	public void process(@RequestParam("userNames") List<String> userNames,Model model) {
-		System.out.println("Users to be Added" +userNames);
+	public void process(@RequestParam("userIdList") List<String> userIdList,@RequestParam("groupName") String groupName,Model model) {
+		System.out.println("Users to be Added" +userIdList+" Group Name :"+groupName);
 	}
 }

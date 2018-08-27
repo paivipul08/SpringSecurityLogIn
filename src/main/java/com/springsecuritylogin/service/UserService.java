@@ -14,5 +14,7 @@ public interface UserService {
 
 	User findByUsername(String username);
 
-	List<String> findAllUsersNames(User user);
+	List<User> findAllUsersNames(User user);
+
+	List<User> findByUsernameContainingIgnoreCase(String username);
 }

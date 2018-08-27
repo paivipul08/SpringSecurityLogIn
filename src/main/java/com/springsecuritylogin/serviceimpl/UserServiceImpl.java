@@ -55,10 +55,15 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public List<String> findAllUsersNames(User user){
+	public List<User> findAllUsersNames(User user){
 		List<User> userlist= userRepository.findByIdNotOrderByUsername(user.getId());
-		List<String> userNamesList=userlist.stream().map(User :: getUsername).collect(Collectors.toList());
-		return userNamesList;
+		//List<String> userNamesList=userlist.stream().map(User :: getUsername).collect(Collectors.toList());
+		return userlist;
+	}
+	
+	@Override
+	public List<User> findByUsernameContainingIgnoreCase(String username){
+		return 	userRepository.findByUsernameContainingIgnoreCase(username);
 	}
 	
 }
